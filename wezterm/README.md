@@ -23,6 +23,7 @@
 ## 原作者仓库
 
 - <https://github.com/KevinSilvester/wezterm-config>
+- <https://github.com/QianSong1/wezterm-config>
 
 
 
@@ -77,4 +78,5 @@ Ctrl+alt+[→]    --向右扩展窗格
 Alt+[↑]         --放大字体
 Alt+[↓]         --缩小字体
 Alt+r           --重置字体大小
+Ctrl+shift+m    --打开菜单
 ```
