@@ -55,7 +55,11 @@
 
 3、将解压的文件放入：`$HOME/.config/wezterm`目录底下
 
-Windows目录：`C:\Users\Fizz\.config\wezterm`
+Windows目录：`C:\Users\用户（自己用户名）\.config\wezterm`
+设置wezterm环境变量
+![image](https://github.com/user-attachments/assets/d2aa0ef7-310b-49b3-bd6f-4ef88cfc5a1f)
+
+
 
 
 
