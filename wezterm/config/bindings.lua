@@ -54,7 +54,7 @@ local keys = {
   -- misc/useful --
   { key = "F1", mods = "NONE", action = "ActivateCopyMode" },
   { key = "F2", mods = "NONE", action = act.ActivateCommandPalette },
-  { key = "F3", mods = "NONE", action = act.ShowLauncher },
+  { key = "m", mods = "CTRL|SHIFT", action = act.ShowLauncher },
   { key = "F4", mods = "NONE", action = act.ShowTabNavigator },
   { key = "F11", mods = "NONE", action = act.ToggleFullScreen },
   { key = "F12", mods = "NONE", action = act.ShowDebugOverlay },
@@ -157,13 +157,22 @@ local keys = {
       end),
     }),
   },
-  -- new key binding
+
+  -- restart SSH session
   {
-    key = 'm',
-    mods = 'CTRL|SHIFT',
-    action = wezterm.action.ShowLauncher,
+    key = "u",
+    mods = "CTRL|SHIFT",
+    action = wezterm.action_callback(function(window, pane)
+      local current_command = pane:get_foreground_process_name()
+      if current_command and current_command:match("ssh") then
+        local args = pane:get_foreground_process_args()
+        window:perform_action(act.SpawnCommandInNewTab({ args = args }), pane)
+        window:perform_action(act.CloseCurrentPane({ confirm = false }), pane)
+      end
+    end),
   },
 }
+
 
 local key_tables = {
   resize_font = {
@@ -195,6 +204,19 @@ local mouse_bindings = {
     event = { Down = { streak = 1, button = "Left" } },
     mods = "NONE",
     action = act.SelectTextAtMouseCursor("Cell"),
+  },
+  {
+    event = { Up = { streak = 1, button = "Left" } },
+    mods = "NONE",
+    action = act.Multiple({
+      act.ExtendSelectionToMouseCursor("Cell"),
+      act.CopyTo("Clipboard"),
+    }),
+  },
+  {
+    event = { Up = { streak = 1, button = "Right" } },
+    mods = "NONE",
+    action = act.PasteFrom("Clipboard"),
   },
   {
     event = { Up = { streak = 1, button = "Left" } },
@@ -249,3 +271,4 @@ return {
   key_tables = key_tables,
   mouse_bindings = mouse_bindings,
 }
+
